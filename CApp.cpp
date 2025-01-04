@@ -48,6 +48,7 @@ int CApp::on_execute()
     on_loop();
     on_render();
   }
+  return 0;
 }
 
 void CApp::on_event(SDL_Event *event)
