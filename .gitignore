@@ -1,1 +1,3 @@
 build
+*.o
+pseudo3d

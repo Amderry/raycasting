@@ -10,7 +10,7 @@ CXXFLAGS = -std=c++20 -O2
 # Объектовые файлы
 objects = main.o \
 					CApp.o \
-					$(pathsubst %.cpp,%.o,$(wildcard ./raytraycing/*.cpp))
+					$(patsubst %.cpp,%.o,$(wildcard ./raytraycing/*.cpp))
 
 # Пересобираемые
 rebuildables = $(objects) $(link_target)

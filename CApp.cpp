@@ -20,6 +20,20 @@ bool CApp::on_init()
   if (pWindow != NULL)
   {
     pRenderer = SDL_CreateRenderer(pWindow, -1, 0);
+
+    //Init image
+    m_image.init(1280, 720, pRenderer);
+
+    //Create colors
+    for (int x = 0; x < 1280; ++x)
+    {
+      for (int y = 0; y < 720; ++y)
+      {
+        double red = (static_cast<double>(x)/1280.0) * 255;
+        double green = (static_cast<double>(y)/720.0) * 255;
+        m_image.set_pixel(x, y, red, green, 0.0);
+      }
+    }
   }
   else
   {
@@ -68,6 +82,9 @@ void CApp::on_render()
 {
   SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
   SDL_RenderClear(pRenderer);
+
+  //Display image
+  m_image.display();
 
   //update buffers
   SDL_RenderPresent(pRenderer);

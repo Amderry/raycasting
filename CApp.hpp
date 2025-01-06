@@ -2,6 +2,7 @@
 #define CAPP_HPP
 
 #include <SDL2/SDL.h>
+#include "raytraycing/image.hpp"
 
 class CApp
 {
@@ -16,6 +17,7 @@ class CApp
     void on_exit();
 
   private:
+    Image m_image;
     bool is_running;
     SDL_Window *pWindow;
     SDL_Renderer *pRenderer;
