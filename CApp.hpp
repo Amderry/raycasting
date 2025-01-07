@@ -2,7 +2,7 @@
 #define CAPP_HPP
 
 #include <SDL2/SDL.h>
-#include "raytraycing/image.hpp"
+#include "raycasting/image.hpp"
 
 class CApp
 {
