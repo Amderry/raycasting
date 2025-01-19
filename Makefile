@@ -5,7 +5,7 @@ link_target = pseudo3d
 LIBS = -lSDL2
 
 # Флаги
-CXXFLAGS = -std=c++20 -O2 
+CXXFLAGS = -std=c++20 -O2 -g 
 
 # Объектовые файлы
 objects = main.o \
@@ -17,7 +17,7 @@ rebuildables = $(objects) $(link_target)
 
 # Правило сборки
 $(link_target): $(objects)
-	g++ -g -o $(link_target) $(objects) $(LIBS) $(CXXFLAGS)
+	g++ -o $(link_target) $(objects) $(LIBS) $(CXXFLAGS)
 
 # Правило создания .о файлов
 %.o: %.cpp
