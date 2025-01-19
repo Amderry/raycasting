@@ -25,15 +25,8 @@ bool CApp::on_init()
     m_image.init(1280, 720, pRenderer);
 
     //Create colors
-    for (int x = 0; x < 1280; ++x)
-    {
-      for (int y = 0; y < 720; ++y)
-      {
-        double red = (static_cast<double>(x)/1280.0) * 255;
-        double green = (static_cast<double>(y)/720.0) * 255;
-        m_image.set_pixel(x, y, red, green, 0.0);
-      }
-    }
+    
+    m_map.load("maps/first.txt");
   }
   else
   {
@@ -62,6 +55,7 @@ int CApp::on_execute()
     on_loop();
     on_render();
   }
+  on_exit();
   return 0;
 }
 
@@ -75,7 +69,18 @@ void CApp::on_event(SDL_Event *event)
 
 void CApp::on_loop()
 {
-
+  for (int x = 0; x < 160; ++x)
+  {
+    for (int y = 0; y < 90; ++y)
+    {
+      double green = (static_cast<double>(random() % 1280)/1280.0) * 255;
+      double blue = (static_cast<double>(random() % 720)/720.0) * 255;
+      for (int j = 0; j < 64; ++j)
+      {
+        m_image.set_pixel(x * 8 + j % 8, y * 8 + j / 8, 0.0, green, blue);
+      }
+    }
+  }
 }
 
 void CApp::on_render()
@@ -92,6 +97,7 @@ void CApp::on_render()
 
 void CApp::on_exit()
 {
+  m_map.unload();
   SDL_DestroyRenderer(pRenderer);
   SDL_DestroyWindow(pWindow);
   pWindow = NULL;

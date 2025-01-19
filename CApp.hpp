@@ -2,7 +2,9 @@
 #define CAPP_HPP
 
 #include <SDL2/SDL.h>
+#include <stdlib.h>
 #include "raycasting/image.hpp"
+#include "raycasting/map.hpp"
 
 class CApp
 {
@@ -18,6 +20,7 @@ class CApp
 
   private:
     Image m_image;
+    Map m_map;
     bool is_running;
     SDL_Window *pWindow;
     SDL_Renderer *pRenderer;
