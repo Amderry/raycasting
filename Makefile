@@ -5,7 +5,7 @@ link_target = pseudo3d
 LIBS = -lSDL2
 
 # Флаги
-CXXFLAGS = -std=c++20 -O2 -g 
+CXXFLAGS = -std=c++20 -g 
 
 # Объектовые файлы
 objects = main.o \
