@@ -1,8 +1,10 @@
 #include "CApp.hpp"
 
 // CApp constructor
-CApp::CApp()
+CApp::CApp(Uint32 w, Uint32 h)
 {
+  m_width = w;
+  m_height = h;
   is_running = true;
   pWindow = NULL;
   pRenderer = NULL;
@@ -15,14 +17,14 @@ bool CApp::on_init()
     return false;
   }
 
-  pWindow = SDL_CreateWindow("Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN);
+  pWindow = SDL_CreateWindow("Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_SHOWN);
 
   if (pWindow != NULL)
   {
     pRenderer = SDL_CreateRenderer(pWindow, -1, 0);
 
     //Init image
-    m_image.init(1280, 720, pRenderer);
+    m_image.init(m_width, m_height, pRenderer);
 
     //Create colors
     
@@ -69,18 +71,31 @@ void CApp::on_event(SDL_Event *event)
 
 void CApp::on_loop()
 {
-  for (int x = 0; x < 160; ++x)
+  const int * const map_array = m_map.get_map();
+  for (int y = 0; y < 8; ++y)
   {
-    for (int y = 0; y < 90; ++y)
+    for (int x = 0; x < 8; ++x)
     {
-      double green = (static_cast<double>(random() % 1280)/1280.0) * 255;
-      double blue = (static_cast<double>(random() % 720)/720.0) * 255;
+      double red, green, blue;
+      if (map_array[x + y * 8])
+      { 
+        red = static_cast<double>(90 - y)/90.0 * 255;
+        blue = static_cast<double>(90 - y)/90.0 * 255;
+        green = static_cast<double>(160 - x)/160.0 * 255;
+      }
+      else
+      {
+        red = 0.0;
+        blue = 0.0;
+        green = 0.0;
+      }
       for (int j = 0; j < 64; ++j)
       {
-        m_image.set_pixel(x * 8 + j % 8, y * 8 + j / 8, 0.0, green, blue);
+        m_image.set_pixel(x * 8 + j % 8, y * 8 + j / 8, red, green, blue);
       }
     }
   }
+  m_image.set_pixel(32, 30, 255.0, 255.0, 255.0);
 }
 
 void CApp::on_render()

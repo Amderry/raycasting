@@ -9,7 +9,7 @@
 class CApp
 {
   public:
-    CApp();
+    CApp(Uint32 width, Uint32 height);
 
     int on_execute();
     bool on_init();
@@ -24,6 +24,8 @@ class CApp
     bool is_running;
     SDL_Window *pWindow;
     SDL_Renderer *pRenderer;
+    Uint32 m_width;
+    Uint32 m_height;
 };
 
 #endif
