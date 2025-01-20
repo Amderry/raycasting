@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "image.hpp"
 
 class Map
 {
@@ -19,6 +20,8 @@ class Map
     void unload();
 
     int* get_map();
+
+    void draw_map(Image& image, const Uint32 width, const Uint32 height);
 
   private:
     int *map_array;
