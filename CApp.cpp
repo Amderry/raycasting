@@ -29,6 +29,7 @@ bool CApp::on_init()
     //Create colors
     
     m_map.load("maps/first.txt");
+    m_player.set_pos(32,30);
   }
   else
   {
@@ -63,39 +64,40 @@ int CApp::on_execute()
 
 void CApp::on_event(SDL_Event *event)
 {
-  if (event->type == SDL_QUIT)
+  switch (event->type)
   {
-    is_running = false;
+    case(SDL_QUIT):
+      is_running = false;
+    break;
+    case(SDL_KEYDOWN):
+      Input::press_key(event->key.keysym.sym); 
+    break;
+    case(SDL_KEYUP):
+      Input::release_key(event->key.keysym.sym);
+    break;
   }
 }
 
 void CApp::on_loop()
 {
-  const int * const map_array = m_map.get_map();
-  for (int y = 0; y < 8; ++y)
+  m_map.draw_map(m_image, m_width, m_height);
+  if (Input::is_key_pressed(SDLK_w))
   {
-    for (int x = 0; x < 8; ++x)
-    {
-      double red, green, blue;
-      if (map_array[x + y * 8])
-      { 
-        red = static_cast<double>(90 - y)/90.0 * 255;
-        blue = static_cast<double>(90 - y)/90.0 * 255;
-        green = static_cast<double>(160 - x)/160.0 * 255;
-      }
-      else
-      {
-        red = 0.0;
-        blue = 0.0;
-        green = 0.0;
-      }
-      for (int j = 0; j < 64; ++j)
-      {
-        m_image.set_pixel(x * 8 + j % 8, y * 8 + j / 8, red, green, blue);
-      }
-    }
+    m_player.set_pos(m_player.get_pos_x(), m_player.get_pos_y() - 2);
   }
-  m_image.set_pixel(32, 30, 255.0, 255.0, 255.0);
+  if (Input::is_key_pressed(SDLK_s))
+  {
+    m_player.set_pos(m_player.get_pos_x(), m_player.get_pos_y() + 2);
+  }
+  if (Input::is_key_pressed(SDLK_a))
+  {
+    m_player.set_pos(m_player.get_pos_x() - 2, m_player.get_pos_y());
+  }
+  if (Input::is_key_pressed(SDLK_d))
+  {
+    m_player.set_pos(m_player.get_pos_x() + 2, m_player.get_pos_y());
+  }
+  m_player.draw_player(m_image);
 }
 
 void CApp::on_render()

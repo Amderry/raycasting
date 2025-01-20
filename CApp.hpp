@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "raycasting/image.hpp"
 #include "raycasting/map.hpp"
+#include "raycasting/player.hpp"
+#include "raycasting/input.hpp"
 
 class CApp
 {
@@ -21,6 +23,7 @@ class CApp
   private:
     Image m_image;
     Map m_map;
+    Player m_player;
     bool is_running;
     SDL_Window *pWindow;
     SDL_Renderer *pRenderer;
