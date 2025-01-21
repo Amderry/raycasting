@@ -2,7 +2,6 @@
 #define IMAGE_HPP
 
 #include <string>
-#include <vector>
 #include <SDL2/SDL.h>
 
 class Image
@@ -26,9 +25,9 @@ class Image
   private:
     Uint32 convert_color(const double red, const double green, const double blue);
     void init_texture();
-    std::vector<std::vector<double>> m_rChannel;
-    std::vector<std::vector<double>> m_gChannel;
-    std::vector<std::vector<double>> m_bChannel;
+    double *m_rChannel;
+    double *m_gChannel;
+    double *m_bChannel;
     int m_xSize, m_ySize;
     SDL_Renderer *m_pRenderer;
     SDL_Texture *m_pTexture;

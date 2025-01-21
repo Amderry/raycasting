@@ -5,6 +5,9 @@ Image::Image()
   m_xSize = 0;
   m_ySize = 0;
   m_pTexture = NULL;
+  m_rChannel = NULL;
+  m_gChannel = NULL;
+  m_bChannel = NULL;
 }
 
 Image::~Image()
@@ -13,13 +16,19 @@ Image::~Image()
   {
     SDL_DestroyTexture(m_pTexture);
   }
+  delete[] m_rChannel;
+  delete[] m_gChannel;
+  delete[] m_bChannel;
+  m_rChannel = NULL;
+  m_gChannel = NULL;
+  m_bChannel = NULL;
 }
 
 void Image::init(const int x_size, const int y_size, SDL_Renderer *pRenderer)
 {
-  m_rChannel.resize(x_size, std::vector<double>(y_size, 0.0));
-  m_gChannel.resize(x_size, std::vector<double>(y_size, 0.0));
-  m_bChannel.resize(x_size, std::vector<double>(y_size, 0.0));
+  m_rChannel = new double[x_size * y_size];
+  m_gChannel = new double[x_size * y_size];
+  m_bChannel = new double[x_size * y_size];
 
   m_xSize = x_size;
   m_ySize = y_size;
@@ -31,9 +40,9 @@ void Image::init(const int x_size, const int y_size, SDL_Renderer *pRenderer)
 
 void Image::set_pixel(const int x, const int y, const double red, const double green, const double blue)
 {
-  m_rChannel.at(x).at(y) = red;
-  m_gChannel.at(x).at(y) = green;
-  m_bChannel.at(x).at(y) = blue;
+  m_rChannel[y * m_xSize + x] = red;
+  m_gChannel[y * m_xSize + x] = green;
+  m_bChannel[y * m_xSize + x] = blue;
 }
 
 void Image::display()
@@ -46,7 +55,7 @@ void Image::display()
   {
     for(int y = 0; y < m_ySize; ++y)
     {
-      temp_pixels[(y * m_xSize) + x] = convert_color(m_rChannel.at(x).at(y), m_gChannel.at(x).at(y), m_bChannel.at(x).at(y));
+      temp_pixels[y * m_xSize + x] = convert_color(m_rChannel[y * m_xSize + x], m_gChannel[y * m_xSize + x], m_bChannel[y * m_xSize + x]);
     }
   }
 
