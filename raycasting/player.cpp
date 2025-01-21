@@ -27,7 +27,22 @@ Uint32 Player::get_pos_y()
   return m_y;
 }
 
-void Player::draw_player(Image& image)
+void Player::move()
 {
-  image.set_pixel(m_x, m_y, 255.0, 255.0, 255.0);
+  if (Input::is_key_pressed(SDLK_w))
+  {
+    set_pos(m_x, m_y - 1);
+  }
+  if (Input::is_key_pressed(SDLK_s))
+  {
+    set_pos(m_x, m_y + 1);
+  }
+  if (Input::is_key_pressed(SDLK_a))
+  {
+    set_pos(m_x - 1, m_y);
+  }
+  if (Input::is_key_pressed(SDLK_d))
+  {
+    set_pos(m_x + 1, m_y);
+  }
 }

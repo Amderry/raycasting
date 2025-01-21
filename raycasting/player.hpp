@@ -1,21 +1,22 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "image.hpp"
+#include "input.hpp"
+#include <SDL2/SDL_keycode.h>
 
 class Player
 {
   public:
     Player();
     ~Player();
-    void set_pos(Uint32 x, Uint32 y);
     Uint32 get_pos_x();
     Uint32 get_pos_y();
-    void draw_player(Image& image);
+    void move();
 
   private:
     Uint32 m_x;
     Uint32 m_y;
+    void set_pos(Uint32 x, Uint32 y);
 };
 
 #endif
