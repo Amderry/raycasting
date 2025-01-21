@@ -22,14 +22,8 @@ bool CApp::on_init()
   if (pWindow != NULL)
   {
     pRenderer = SDL_CreateRenderer(pWindow, -1, 0);
-
-    //Init image
-    m_image.init(m_width, m_height, pRenderer);
-
-    //Create colors
-    
-    m_map.load("maps/first.txt");
-    m_player.set_pos(32,30);
+    m_scene.init(m_width, m_height, pRenderer);
+    m_scene.get_map()->load("maps/first.txt");
   }
   else
   {
@@ -80,24 +74,7 @@ void CApp::on_event(SDL_Event *event)
 
 void CApp::on_loop()
 {
-  m_map.draw_map(m_image, m_width, m_height);
-  if (Input::is_key_pressed(SDLK_w))
-  {
-    m_player.set_pos(m_player.get_pos_x(), m_player.get_pos_y() - 2);
-  }
-  if (Input::is_key_pressed(SDLK_s))
-  {
-    m_player.set_pos(m_player.get_pos_x(), m_player.get_pos_y() + 2);
-  }
-  if (Input::is_key_pressed(SDLK_a))
-  {
-    m_player.set_pos(m_player.get_pos_x() - 2, m_player.get_pos_y());
-  }
-  if (Input::is_key_pressed(SDLK_d))
-  {
-    m_player.set_pos(m_player.get_pos_x() + 2, m_player.get_pos_y());
-  }
-  m_player.draw_player(m_image);
+  m_scene.get_player()->move();
 }
 
 void CApp::on_render()
@@ -105,16 +82,14 @@ void CApp::on_render()
   SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
   SDL_RenderClear(pRenderer);
 
-  //Display image
-  m_image.display();
-
+  //Build scene
+  m_scene.build();
   //update buffers
   SDL_RenderPresent(pRenderer);
 }
 
 void CApp::on_exit()
 {
-  m_map.unload();
   SDL_DestroyRenderer(pRenderer);
   SDL_DestroyWindow(pWindow);
   pWindow = NULL;

@@ -3,10 +3,10 @@
 
 #include <SDL2/SDL.h>
 #include <stdlib.h>
-#include "raycasting/image.hpp"
 #include "raycasting/map.hpp"
 #include "raycasting/player.hpp"
 #include "raycasting/input.hpp"
+#include "raycasting/scene.hpp"
 
 class CApp
 {
@@ -21,10 +21,8 @@ class CApp
     void on_exit();
 
   private:
-    Image m_image;
-    Map m_map;
-    Player m_player;
     bool is_running;
+    Scene m_scene;
     SDL_Window *pWindow;
     SDL_Renderer *pRenderer;
     Uint32 m_width;
