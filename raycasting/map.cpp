@@ -44,6 +44,11 @@ int* Map::get_map()
   return map_array;
 }
 
+int Map::get_map_length()
+{ 
+  return map_length;
+}
+
 void Map::draw_map(Image& image, const Uint32 width, const Uint32 height)
 {
   for (int y = 0; y < 8; ++y)

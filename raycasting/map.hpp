@@ -20,6 +20,7 @@ class Map
     void unload();
 
     int* get_map();
+    int get_map_length();
 
     void draw_map(Image& image, const Uint32 width, const Uint32 height);
 
