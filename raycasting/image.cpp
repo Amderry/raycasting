@@ -110,3 +110,13 @@ Uint32 Image::convert_color(const double red, const double green, const double b
 
   return pixel_color;
 }
+
+int Image::get_x()
+{
+  return m_xSize;
+}
+
+int Image::get_y()
+{
+  return m_ySize;
+}

@@ -22,6 +22,12 @@ class Image
     //Return image to display
     void display();
 
+    //Get x size
+    int get_x();
+
+    //Get y size
+    int get_y();
+
   private:
     Uint32 convert_color(const double red, const double green, const double blue);
     void init_texture();
