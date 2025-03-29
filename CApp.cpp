@@ -74,7 +74,7 @@ void CApp::on_event(SDL_Event *event)
 
 void CApp::on_loop()
 {
-  m_scene.get_player()->move();
+  m_scene.act();
 }
 
 void CApp::on_render()
