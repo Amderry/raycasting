@@ -11,6 +11,11 @@ Player::~Player()
 
 }
 
+void Player::init(Uint32 x, Uint32 y)
+{
+  set_pos(x, y);
+}
+
 void Player::set_pos(Uint32 x, Uint32 y)
 {
   m_x = x;

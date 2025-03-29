@@ -11,6 +11,7 @@ class Player
     ~Player();
     Uint32 get_pos_x();
     Uint32 get_pos_y();
+    void init(Uint32 x, Uint32 y);
     void move();
 
   private:
