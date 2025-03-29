@@ -5,6 +5,7 @@
 #include "map.hpp"
 #include "image.hpp"
 #include <SDL2/SDL_render.h>
+#include <stdlib.h>
 
 class Scene
 {
@@ -13,6 +14,7 @@ class Scene
     ~Scene();
     void init(Uint32 w, Uint32 h, SDL_Renderer* pRenderer);
     void build();
+    void act();
     Map* get_map();
     Player* get_player();
   private:

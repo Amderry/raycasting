@@ -13,6 +13,7 @@ Scene::~Scene()
 void Scene::init(Uint32 w, Uint32 h, SDL_Renderer *pRenderer)
 {
   m_image.init(w, h, pRenderer);
+  m_player.init(50, 50);
 }
 
 void Scene::build()
@@ -24,9 +25,9 @@ void Scene::build()
       double red, green, blue;
       if (m_map.get_map()[x + y * 8])
       { 
-        red = static_cast<double>(90 - y)/90.0 * 255;
-        blue = static_cast<double>(90 - y)/90.0 * 255;
-        green = static_cast<double>(160 - x)/160.0 * 255;
+        red = 255.0;
+        blue = 255.0;
+        green = 255.0;
       }
       else
       {
@@ -40,8 +41,14 @@ void Scene::build()
       }
     }
   }
+
   m_image.set_pixel(m_player.get_pos_x(), m_player.get_pos_y(), 255.0, 255.0, 255.0);
   m_image.display();
+}
+
+void Scene::act()
+{
+  m_player.move();
 }
 
 Map* Scene::get_map()
