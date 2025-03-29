@@ -48,7 +48,7 @@ void Scene::build()
 
 void Scene::act()
 {
-  m_player.move();
+  m_player.move(m_map.get_map(), 8);
 }
 
 Map* Scene::get_map()
