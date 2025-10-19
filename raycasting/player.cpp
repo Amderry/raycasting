@@ -40,19 +40,19 @@ Uint32 Player::get_pos_y()
 
 void Player::move(int* map, int map_side_size)
 {
-  if (Input::is_key_pressed(SDLK_w))
+  if (Input::is_key_pressed(SDL_SCANCODE_W))
   {
     set_pos(m_x, m_y - ((m_y - 1) / map_side_size > 0 && (m_y - 1) / map_side_size < (map_side_size - 1) ? !map[m_x / map_side_size + (m_y - 1) - ((m_y - 1) % map_side_size)] : 0));
   }
-  if (Input::is_key_pressed(SDLK_s))
+  if (Input::is_key_pressed(SDL_SCANCODE_S))
   {
     set_pos(m_x, m_y + ((m_y + 1) / map_side_size > 0 && (m_y + 1) / map_side_size < (map_side_size - 1) ? !map[m_x / map_side_size + (m_y + 1) - ((m_y + 1) % map_side_size)] : 0));
   }
-  if (Input::is_key_pressed(SDLK_a))
+  if (Input::is_key_pressed(SDL_SCANCODE_A))
   {
     set_pos(m_x - ((m_x - 1) / map_side_size > 0 && (m_x - 1) / map_side_size < (map_side_size - 1) ? !map[(m_x - 1) / map_side_size + m_y - (m_y % map_side_size)] : 0), m_y);
   }
-  if (Input::is_key_pressed(SDLK_d))
+  if (Input::is_key_pressed(SDL_SCANCODE_D))
   {
     set_pos(m_x + ((m_x + 1) / map_side_size > 0 && (m_x + 1) / map_side_size < (map_side_size - 1) ? !map[(m_x + 1) / map_side_size + m_y - (m_y % map_side_size)] : 0), m_y);
   }

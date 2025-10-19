@@ -64,10 +64,10 @@ void CApp::on_event(SDL_Event *event)
       is_running = false;
     break;
     case(SDL_KEYDOWN):
-      Input::press_key(event->key.keysym.sym); 
+      Input::press_key(event->key.keysym.scancode); 
     break;
     case(SDL_KEYUP):
-      Input::release_key(event->key.keysym.sym);
+      Input::release_key(event->key.keysym.scancode);
     break;
   }
 }

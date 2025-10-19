@@ -2,7 +2,7 @@
 #define PLAYER_HPP
 
 #include "input.hpp"
-#include <SDL2/SDL_keycode.h>
+#include <SDL2/SDL_scancode.h>
 
 class Player
 {
