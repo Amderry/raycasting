@@ -2,7 +2,9 @@
 
 Scene::Scene()
 {
-
+  m_map.set_horizontal_size(8);
+  m_map.set_vertical_size(8);
+  m_map.set_chunk_size(9);
 }
 
 Scene::~Scene()
@@ -18,12 +20,16 @@ void Scene::init(Uint32 w, Uint32 h, SDL_Renderer *pRenderer)
 
 void Scene::build()
 {
-  for (int y = 0; y < 8; ++y)
+  int chunk_size = m_map.get_chunk_size();
+  int vertical_size = m_map.get_vertical_size();
+  int horizontal_size = m_map.get_horizontal_size();
+
+  for (int y = 0; y < vertical_size; ++y)
   {
-    for (int x = 0; x < 8; ++x)
+    for (int x = 0; x < horizontal_size; ++x)
     {
       double red, green, blue;
-      if (m_map.get_map()[x + y * 8])
+      if (m_map.get_map()[x + y * vertical_size])
       { 
         red = 255.0;
         blue = 255.0;
@@ -35,9 +41,9 @@ void Scene::build()
         blue = 0.0;
         green = 0.0;
       }
-      for (int j = 0; j < 64; ++j)
+      for (int j = 0; j < chunk_size * chunk_size; ++j)
       {
-        m_image.set_pixel(x * 8 + j % 8, y * 8 + j / 8, red, green, blue);
+        m_image.set_pixel(x * chunk_size + j % chunk_size, y * chunk_size + j / chunk_size, red, green, blue);
       }
     }
   }
@@ -48,7 +54,7 @@ void Scene::build()
 
 void Scene::act()
 {
-  m_player.move(m_map.get_map(), 8);
+  m_player.move(&m_map, 1);
 }
 
 Map* Scene::get_map()
