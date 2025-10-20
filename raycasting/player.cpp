@@ -32,28 +32,38 @@ Uint32 Player::get_pos_y()
   return m_y;
 }
 
-/*
-  В методе move действуем следующим образом:
-  сначала проверяем, насколько мы близки к границе массива, содержащего стЕны для избежания segfault
-  затем считаем номер "чанка" карты, в котором расположен игрок формулой: m//n + m_y - (m_y % n), где n - размер стороны чанка
-*/
-
-void Player::move(int* map, int map_side_size)
+void Player::move(Map *map, int speed)
 {
+  int dy = m_y;
+  int dx = m_x;
   if (Input::is_key_pressed(SDL_SCANCODE_W))
   {
-    set_pos(m_x, m_y - ((m_y - 1) / map_side_size > 0 && (m_y - 1) / map_side_size < (map_side_size - 1) ? !map[m_x / map_side_size + (m_y - 1) - ((m_y - 1) % map_side_size)] : 0));
+    if (!map->is_colliding(m_x, m_y - speed))
+    {
+      dy -= speed;
+    }
   }
   if (Input::is_key_pressed(SDL_SCANCODE_S))
   {
-    set_pos(m_x, m_y + ((m_y + 1) / map_side_size > 0 && (m_y + 1) / map_side_size < (map_side_size - 1) ? !map[m_x / map_side_size + (m_y + 1) - ((m_y + 1) % map_side_size)] : 0));
+    if (!map->is_colliding(m_x, m_y + speed))
+    {
+      dy += speed;
+    }
   }
   if (Input::is_key_pressed(SDL_SCANCODE_A))
   {
-    set_pos(m_x - ((m_x - 1) / map_side_size > 0 && (m_x - 1) / map_side_size < (map_side_size - 1) ? !map[(m_x - 1) / map_side_size + m_y - (m_y % map_side_size)] : 0), m_y);
+    if (!map->is_colliding(m_x - speed, m_y))
+    {
+      dx -= speed;
+    }
   }
   if (Input::is_key_pressed(SDL_SCANCODE_D))
   {
-    set_pos(m_x + ((m_x + 1) / map_side_size > 0 && (m_x + 1) / map_side_size < (map_side_size - 1) ? !map[(m_x + 1) / map_side_size + m_y - (m_y % map_side_size)] : 0), m_y);
+    if (!map->is_colliding(m_x + speed, m_y))
+    {
+      dx += speed;
+    }
   }
+
+  set_pos(dx, dy);
 }

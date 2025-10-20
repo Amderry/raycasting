@@ -2,6 +2,7 @@
 #define PLAYER_HPP
 
 #include "input.hpp"
+#include "map.hpp"
 #include <SDL2/SDL_scancode.h>
 
 class Player
@@ -12,7 +13,7 @@ class Player
     Uint32 get_pos_x();
     Uint32 get_pos_y();
     void init(Uint32 x, Uint32 y);
-    void move(int* map, int map_side_size); // Указатель на карту для возможности коллизий, пока не придумал, как лучше сделать
+    void move(Map* map, int speed); 
 
   private:
     Uint32 m_x;
