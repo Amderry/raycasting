@@ -29,7 +29,6 @@ class Map
     void set_chunk_size(int csize);
     int get_chunk_size();
 
-    void draw_map(Image& image, const Uint32 width, const Uint32 height);
     bool is_colliding(int dx, int dy);
 
   private:
